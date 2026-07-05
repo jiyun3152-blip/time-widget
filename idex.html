@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Time</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>𝒈𝒍𝒐𝒃𝒂𝒍 𝒕𝒊𝒎𝒆</h1>
+        
+        <div class="selector">
+            <label for="city-select">도시 선택:</label>
+            <select id="city-select">
+                <option value="Seoul">서울 (UTC+9)</option>
+                <option value="Tokyo">도쿄 (UTC+9)</option>
+                <option value="London">런던 (UTC+0)</option>
+                <option value="NewYork">뉴욕 (UTC-5)</option>
+                <option value="Sydney">시드니 (UTC+10)</option>
+                <option value="Dubai">두바이 (UTC+4)</option>
+                <option value="Singapore">싱가포르 (UTC+8)</option>
+            </select>
+        </div>
+        
+        <div class="time-display">
+            <p id="city-name">서울</p>
+            <p id="current-time">00:00:00</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
