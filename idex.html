@@ -4,7 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Time</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #adf7ff 0%, #e0f6ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        h1 {
+            color: #D6D6D6;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        .selector {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #D6D6D6;
+            font-weight: bold;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #adf7ff;
+            border-radius: 8px;
+            background-color: #adf7ff;
+            cursor: pointer;
+            color: #D6D6D6;
+        }
+        
+        select:hover {
+            background-color: #e0f6ff;
+        }
+        
+        .time-display {
+            background: linear-gradient(135deg, #adf7ff 0%, #e0f6ff 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        #city-name {
+            font-size: 24px;
+            color: #D6D6D6;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        #current-time {
+            font-size: 48px;
+            color: #D6D6D6;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -29,6 +108,41 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const cities = {
+            Seoul: { utcOffset: 9, name: '서울' },
+            Tokyo: { utcOffset: 9, name: '도쿄' },
+            London: { utcOffset: 0, name: '런던' },
+            NewYork: { utcOffset: -5, name: '뉴욕' },
+            Sydney: { utcOffset: 10, name: '시드니' },
+            Dubai: { utcOffset: 4, name: '두바이' },
+            Singapore: { utcOffset: 8, name: '싱가포르' }
+        };
+
+        const citySelect = document.getElementById('city-select');
+        const cityName = document.getElementById('city-name');
+        const currentTime = document.getElementById('current-time');
+
+        function updateTime() {
+            const selectedCity = citySelect.value;
+            const city = cities[selectedCity];
+            
+            const now = new Date();
+            const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const cityTime = new Date(utcTime + (3600000 * city.utcOffset));
+            
+            const hours = String(cityTime.getHours()).padStart(2, '0');
+            const minutes = String(cityTime.getMinutes()).padStart(2, '0');
+            const seconds = String(cityTime.getSeconds()).padStart(2, '0');
+            
+            cityName.textContent = city.name;
+            currentTime.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        citySelect.addEventListener('change', updateTime);
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
 </body>
 </html>
